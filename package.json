@@ -1,6 +1,6 @@
 {
   "name": "fp-ts-fluture",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "fp-ts bindings for Fluture",
   "files": ["lib"],
   "main": "lib/index.js",
@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/gcanti/fp-ts-fluture",
   "dependencies": {
-    "fluture": "^7.0.1",
+    "fluture": "^7.1.0",
     "fp-ts": "^0.4.6"
   },
   "devDependencies": {
