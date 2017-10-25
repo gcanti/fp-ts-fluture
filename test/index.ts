@@ -32,7 +32,8 @@ describe('Fluture bindings', () => {
   })
 
   it('should export an Alt instance', () => {
-    const z: ConcurrentFuture<never, number> = concurrentFluture.alt(concurrentFluture.of(1))(
+    const z: ConcurrentFuture<never, number> = concurrentFluture.alt(
+      concurrentFluture.of(1),
       concurrentFluture.of(2)
     ) as any
     return z.sequential.promise().then(n => {
@@ -41,7 +42,8 @@ describe('Fluture bindings', () => {
   })
 
   it('should export an Alternative instance', () => {
-    const z: ConcurrentFuture<never, number> = concurrentFluture.alt<number>(concurrentFluture.of(1))(
+    const z: ConcurrentFuture<never, number> = concurrentFluture.alt<number>(
+      concurrentFluture.of(1),
       concurrentFluture.zero()
     ) as any
     return z.sequential.promise().then(n => {
