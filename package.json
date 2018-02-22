@@ -43,6 +43,6 @@
   "tags": [],
   "keywords": [],
   "peerDependencies": {
-    "fluture": "^8.0.2"
+    "fluture": ">=7.2.2 <9.0.0"
   }
 }
