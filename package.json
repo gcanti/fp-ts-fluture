@@ -1,16 +1,15 @@
 {
   "name": "fp-ts-fluture",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "fp-ts bindings for Fluture",
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "lint": "tslint src/**/*.ts test/**/*.ts",
     "mocha": "TS_NODE_CACHE=false mocha -r ts-node/register test/*.ts",
-    "prettier": "prettier --no-semi --single-quote --print-width 120 --parser typescript --list-different \"{src,test}/**/*.ts\"",
+    "prettier":
+      "prettier --no-semi --single-quote --print-width 120 --parser typescript --list-different \"{src,test}/**/*.ts\"",
     "test": "npm run prettier && npm run lint && npm run mocha",
     "clean": "rm -rf lib/*",
     "build": "npm run clean && tsc"
@@ -40,8 +39,8 @@
     "typescript": "2.7.1",
     "typings-checker": "1.1.2"
   },
-  "tags": [],
-  "keywords": [],
+  "tags": ["fp-ts", "fluture", "bindings"],
+  "keywords": ["fp-ts", "fluture", "bindings"],
   "peerDependencies": {
     "fluture": ">=7.2.2 <9.0.0"
   }
