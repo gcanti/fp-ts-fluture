@@ -2,14 +2,15 @@
   "name": "fp-ts-fluture",
   "version": "0.3.0",
   "description": "fp-ts bindings for Fluture",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "lint": "tslint src/**/*.ts test/**/*.ts",
     "mocha": "TS_NODE_CACHE=false mocha -r ts-node/register test/*.ts",
-    "prettier":
-      "prettier --no-semi --single-quote --print-width 120 --parser typescript --list-different \"{src,test}/**/*.ts\"",
+    "prettier": "prettier --no-semi --single-quote --print-width 120 --parser typescript --list-different \"{src,test}/**/*.ts\"",
     "test": "npm run prettier && npm run lint && npm run mocha",
     "clean": "rm -rf lib/*",
     "build": "npm run clean && tsc"
@@ -25,12 +26,12 @@
   },
   "homepage": "https://github.com/gcanti/fp-ts-fluture",
   "dependencies": {
-    "fluture": "^8.0.2",
     "fp-ts": "^1.0.1"
   },
   "devDependencies": {
     "@types/mocha": "2.2.38",
     "@types/node": "8.0.19",
+    "fluture": "^8.0.2",
     "mocha": "3.2.0",
     "prettier": "1.8.2",
     "ts-node": "3.3.0",
@@ -40,5 +41,8 @@
     "typings-checker": "1.1.2"
   },
   "tags": [],
-  "keywords": []
+  "keywords": [],
+  "peerDependencies": {
+    "fluture": "^8.0.2"
+  }
 }
