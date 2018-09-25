@@ -1,5 +1,5 @@
 import * as assert from 'assert'
-import { reject, of, ConcurrentFuture } from 'fluture'
+import { reject, of, ConcurrentFutureInstance } from 'fluture'
 import { future } from '../src/Future'
 import { concurrentFuture } from '../src/ConcurrentFuture'
 import { sequence } from 'fp-ts/lib/Traversable'
@@ -38,14 +38,20 @@ describe('Fluture bindings', () => {
   })
 
   it('should export an Alt instance', () => {
-    const z: ConcurrentFuture<never, number> = concurrentFuture.alt(concurrentFuture.of(1), concurrentFuture.of(2))
+    const z: ConcurrentFutureInstance<never, number> = concurrentFuture.alt(
+      concurrentFuture.of(1),
+      concurrentFuture.of(2)
+    )
     return z.sequential.promise().then(n => {
       assert.strictEqual(n, 2)
     })
   })
 
   it('should export an Alternative instance', () => {
-    const z: ConcurrentFuture<never, number> = concurrentFuture.alt(concurrentFuture.of(1), concurrentFuture.zero())
+    const z: ConcurrentFutureInstance<never, number> = concurrentFuture.alt(
+      concurrentFuture.of(1),
+      concurrentFuture.zero()
+    )
     return z.sequential.promise().then(n => {
       assert.strictEqual(n, 1)
     })
