@@ -1,9 +1,9 @@
-import { Par, ConcurrentFuture } from 'fluture'
+import { Par, ConcurrentFutureInstance } from 'fluture'
 import { Alternative2 } from 'fp-ts/lib/Alternative'
 
 declare module 'fp-ts/lib/HKT' {
   interface URI2HKT2<L, A> {
-    ConcurrentFuture: ConcurrentFuture<L, A>
+    'Fluture/ConcurrentFuture': ConcurrentFutureInstance<L, A>
   }
 }
 
@@ -15,11 +15,11 @@ declare module 'fluture' {
   }
 }
 
-export const URI = 'ConcurrentFuture'
+export const URI = 'Fluture/ConcurrentFuture'
 
 export type URI = typeof URI
 
-const map = <L, A, B>(fa: ConcurrentFuture<L, A>, f: (a: A) => B): ConcurrentFuture<L, B> => {
+const map = <L, A, B>(fa: ConcurrentFutureInstance<L, A>, f: (a: A) => B): ConcurrentFutureInstance<L, B> => {
   return Par.map(f, fa)
 }
 
