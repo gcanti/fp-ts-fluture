@@ -8,7 +8,7 @@ declare module 'fp-ts/lib/HKT' {
 }
 
 declare module 'fluture' {
-  interface ConcurrentFuture<L, R> {
+  interface ConcurrentFutureInstance<L, R> {
     _A: R
     _L: L
     _URI: URI

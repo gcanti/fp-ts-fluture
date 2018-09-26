@@ -15,7 +15,7 @@ declare module 'fp-ts/lib/HKT' {
 }
 
 declare module 'fluture' {
-  interface Future<L, R> {
+  interface FutureInstance<L, R> {
     _A: R
     _L: L
     _URI: URI
