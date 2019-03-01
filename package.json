@@ -1,6 +1,6 @@
 {
   "name": "fp-ts-fluture",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "fp-ts bindings for Fluture",
   "files": [
     "lib"
@@ -8,7 +8,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "lint": "tslint src/**/*.ts test/**/*.ts",
+    "lint": "tslint -p tsconfig.tslint.json src/**/*.ts test/**/*.ts",
     "mocha": "TS_NODE_CACHE=false mocha -r ts-node/register test/*.ts",
     "prettier": "prettier --no-semi --single-quote --print-width 120 --parser typescript --list-different \"{src,test}/**/*.ts\"",
     "test": "npm run prettier && npm run lint && npm run mocha",
@@ -25,18 +25,17 @@
     "url": "https://github.com/gcanti/fp-ts-fluture/issues"
   },
   "homepage": "https://github.com/gcanti/fp-ts-fluture",
-  "dependencies": {
-    "fp-ts": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/mocha": "2.2.38",
     "@types/node": "8.0.19",
     "fluture": "^10.1.0",
+    "fp-ts": "^1.14.3",
     "mocha": "3.2.0",
-    "prettier": "1.14.3",
-    "ts-node": "3.3.0",
-    "tslint": "4.4.2",
-    "tslint-config-standard": "4.0.0",
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.13.1",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.0.3",
     "typings-checker": "1.1.2"
   },
@@ -51,6 +50,7 @@
     "bindings"
   ],
   "peerDependencies": {
-    "fluture": ">=7.2.2 <9.0.0"
+    "fp-ts": "^1.0.1",
+    "fluture": "^10.1.0"
   }
 }

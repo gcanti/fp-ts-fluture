@@ -4,15 +4,15 @@
 import { fluture } from 'fp-ts-fluture'
 ```
 
-* `Monad` instance
-* `Bifunctor` instance
-* `ChainRec` instance
+- `Monad` instance
+- `Bifunctor` instance
+- `ChainRec` instance
 
 ```ts
 import { concurrentFluture } from 'fp-ts-fluture'
 ```
 
-* `Alternative` instance
+- `Alternative` instance
 
 # Example
 
