@@ -1,13 +1,18 @@
 ---
 title: Future.ts
 nav_order: 2
+parent: Modules
 ---
 
-**Table of contents**
+---
+
+<h2 class="text-delta">Table of contents</h2>
 
 - [URI (type alias)](#uri-type-alias)
 - [URI (constant)](#uri-constant)
 - [future (constant)](#future-constant)
+
+---
 
 # URI (type alias)
 
@@ -17,6 +22,8 @@ nav_order: 2
 export type URI = typeof URI
 ```
 
+Added in v0.5.0
+
 # URI (constant)
 
 **Signature**
@@ -25,10 +32,14 @@ export type URI = typeof URI
 export const URI = ...
 ```
 
+Added in v0.5.0
+
 # future (constant)
 
 **Signature**
 
 ```ts
-export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> = ...
+export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> & Alt2<URI> = ...
 ```
+
+Added in v0.5.0

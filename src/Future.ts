@@ -2,48 +2,47 @@ import { Next, Done, FutureInstance, Future } from 'fluture'
 import { Monad2 } from 'fp-ts/lib/Monad'
 import { Bifunctor2 } from 'fp-ts/lib/Bifunctor'
 import { ChainRec2 } from 'fp-ts/lib/ChainRec'
-import { Either } from 'fp-ts/lib/Either'
-
-export const URI = 'Fluture/Future'
-
-export type URI = typeof URI
+import { Either, fold } from 'fp-ts/lib/Either'
+import { pipe } from 'fp-ts/lib/pipeable'
+import { Alt2 } from 'fp-ts/lib/Alt'
 
 declare module 'fp-ts/lib/HKT' {
-  interface URI2HKT2<L, A> {
-    'Fluture/Future': FutureInstance<L, A>
+  interface URItoKind2<E, A> {
+    'Fluture/Future': FutureInstance<E, A>
   }
 }
 
-declare module 'fluture' {
-  interface FutureInstance<L, R> {
-    _A: R
-    _L: L
-    _URI: URI
-  }
-}
+/**
+ * @since 0.5.0
+ */
+export const URI = 'Fluture/Future'
 
-const chainRec = <L, A, B>(a: A, f: (a: A) => FutureInstance<L, Either<A, B>>): FutureInstance<L, B> => {
-  return Future.chainRec<L, A, B>((next, done, value) => f(value).map(e => e.fold<Next<A> | Done<B>>(next, done)), a)
-}
+/**
+ * @since 0.5.0
+ */
+export type URI = typeof URI
 
-const map = <L, A, B>(fa: FutureInstance<L, A>, f: (a: A) => B): FutureInstance<L, B> => {
-  return fa.map(f)
-}
-
-const chain = <L, A, B>(fa: FutureInstance<L, A>, f: (a: A) => FutureInstance<L, B>): FutureInstance<L, B> => {
-  return fa.chain(f)
-}
-
-const bimap = <L, A, M, B>(fla: FutureInstance<L, A>, f: (l: L) => M, g: (a: A) => B): FutureInstance<M, B> => {
-  return fla.bimap(f, g)
-}
-
-export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> = {
+/**
+ * @since 0.5.0
+ */
+export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> & Alt2<URI> = {
   URI,
-  map,
+  map: (fa, f) => fa.map(f),
   of: Future.of,
   ap: Future.ap,
-  chain,
-  bimap,
-  chainRec
+  chain: (fa, f) => fa.chain(f),
+  bimap: (fea, f, g) => fea.bimap(f, g),
+  mapLeft: (fea, f) => fea.mapRej(f),
+  chainRec: <E, A, B>(a: A, f: (a: A) => FutureInstance<E, Either<A, B>>): FutureInstance<E, B> =>
+    Future.chainRec<E, A, B>(
+      (next, done, value) =>
+        f(value).map(e =>
+          pipe(
+            e,
+            fold<A, B, Next<A> | Done<B>>(next, done)
+          )
+        ),
+      a
+    ),
+  alt: (fx, f) => fx.alt(f())
 }
