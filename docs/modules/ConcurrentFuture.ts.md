@@ -1,13 +1,18 @@
 ---
 title: ConcurrentFuture.ts
 nav_order: 1
+parent: Modules
 ---
 
-**Table of contents**
+---
+
+<h2 class="text-delta">Table of contents</h2>
 
 - [URI (type alias)](#uri-type-alias)
 - [URI (constant)](#uri-constant)
 - [concurrentFuture (constant)](#concurrentfuture-constant)
+
+---
 
 # URI (type alias)
 
@@ -17,6 +22,8 @@ nav_order: 1
 export type URI = typeof URI
 ```
 
+Added in v0.5.0
+
 # URI (constant)
 
 **Signature**
@@ -25,6 +32,8 @@ export type URI = typeof URI
 export const URI = ...
 ```
 
+Added in v0.5.0
+
 # concurrentFuture (constant)
 
 **Signature**
@@ -32,3 +41,5 @@ export const URI = ...
 ```ts
 export const concurrentFuture: Alternative2<URI> = ...
 ```
+
+Added in v0.5.0
