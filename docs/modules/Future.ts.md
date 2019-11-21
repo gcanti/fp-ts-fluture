@@ -39,7 +39,7 @@ Added in v0.5.0
 **Signature**
 
 ```ts
-export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> & Alt2<URI> = ...
+export const future: Monad2<URI> & Bifunctor2<URI> & Alt2<URI> = ...
 ```
 
 Added in v0.5.0
