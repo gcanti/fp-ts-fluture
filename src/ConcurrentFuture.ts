@@ -1,9 +1,9 @@
-import { Par, ConcurrentFutureInstance } from 'fluture'
+import * as F from 'fluture'
 import { Alternative2 } from 'fp-ts/lib/Alternative'
 
 declare module 'fp-ts/lib/HKT' {
   interface URItoKind2<E, A> {
-    'Fluture/ConcurrentFuture': ConcurrentFutureInstance<E, A>
+    'Fluture/ConcurrentFuture': F.ConcurrentFutureInstance<E, A>
   }
 }
 
@@ -22,9 +22,9 @@ export type URI = typeof URI
  */
 export const concurrentFuture: Alternative2<URI> = {
   URI: URI,
-  map: (fa, f) => Par.map(f, fa),
-  of: Par.of,
-  ap: Par.ap,
-  alt: (fx, f) => Par.alt(fx, f()),
-  zero: Par.zero
+  map: (fa, f) => F.map(f)(fa),
+  of: F.Par['fantasy-land/of'],
+  ap: (fab, fa) => F.ap(fa)(fab),
+  alt: (fx, f) => F.alt(f())(fx),
+  zero: F.Par['fantasy-land/zero']
 }

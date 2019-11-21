@@ -1,15 +1,12 @@
 import * as assert from 'assert'
-import { reject, of, ConcurrentFutureInstance } from 'fluture'
-import { future } from '../src/Future'
-import { concurrentFuture } from '../src/ConcurrentFuture'
+import { ConcurrentFutureInstance, promise, reject, resolve, FutureInstance } from 'fluture'
 import { array } from 'fp-ts/lib/Array'
-import { right } from 'fp-ts/lib/Either'
+import { concurrentFuture } from '../src/ConcurrentFuture'
+import { future } from '../src/Future'
 
-describe('Fluture bindings', () => {
+describe('Future', () => {
   it('should work with sequence (failure case)', done => {
-    array
-      .sequence(future)([of(1), reject('ops')])
-      .promise()
+    promise(array.sequence(future)([resolve(1), reject(new Error('ops'))]))
       .then(() => {
         done(new Error('Expected rejection'))
       })
@@ -20,39 +17,36 @@ describe('Fluture bindings', () => {
       .catch(done)
   })
 
-  it('should work with sequence (success case)', () => {
-    return array
-      .sequence(future)([of(1), of(2)])
-      .promise()
-      .then(xs => {
-        assert.deepEqual(xs, [1, 2])
-      })
+  it('should work with sequence (success case)', async () => {
+    const xs = await promise(array.sequence(future)([resolve(1), resolve(2)]))
+    assert.deepEqual(xs, [1, 2])
   })
 
-  it('should export a ChainRec instance', () => {
-    return future
-      .chainRec(1, a => of(right(a)))
-      .promise()
-      .then(n => {
-        assert.strictEqual(n, 1)
-      })
+  it('should export an Alt instance', async () => {
+    const f1: FutureInstance<Error, number> = future.alt(resolve(1), () => resolve(2))
+    const f2: FutureInstance<Error, number> = future.alt(reject(new Error('1')), () => resolve(2))
+    const f3: FutureInstance<Error, number> = future.alt(reject(new Error('1')), () => reject(new Error('2')))
+    const n1 = await promise(f1)
+    const n2 = await promise(f2)
+    const n3 = await promise(f3).catch(() => 3)
+    assert.deepEqual([n1, n2, n3], [1, 2, 3])
   })
+})
 
-  it('should export an Alt instance', () => {
-    const z: ConcurrentFutureInstance<never, number> = concurrentFuture.alt(concurrentFuture.of(1), () =>
+describe('ConcurrentFluture', () => {
+  it('should export an Alt instance', async () => {
+    const z: ConcurrentFutureInstance<Error, number> = concurrentFuture.alt(concurrentFuture.of(1), () =>
       concurrentFuture.of(2)
     )
-    return z.sequential.promise().then(n => {
-      assert.strictEqual(n, 2)
-    })
+    const n = await promise(z.sequential)
+    assert.strictEqual(n, 1)
   })
 
-  it('should export an Alternative instance', () => {
-    const z: ConcurrentFutureInstance<never, number> = concurrentFuture.alt(concurrentFuture.of(1), () =>
+  it('should export an Alternative instance', async () => {
+    const z: ConcurrentFutureInstance<Error, number> = concurrentFuture.alt(concurrentFuture.of(1), () =>
       concurrentFuture.zero()
     )
-    return z.sequential.promise().then(n => {
-      assert.strictEqual(n, 1)
-    })
+    const n = await promise(z.sequential)
+    assert.strictEqual(n, 1)
   })
 })
