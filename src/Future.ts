@@ -34,7 +34,7 @@ export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> & Alt2<URI> 
   mapLeft: (fea, f) => F.mapRej(f)(fea),
   alt: (fx, f) => F.alt(f())(fx),
   chainRec: <E, A, B>(a: A, f: (a: A) => F.FutureInstance<E, Either<A, B>>): F.FutureInstance<E, B> =>
-    (function recur(x: A): F.FutureInstance<E, B>{
-      return F.chain(fold(recur, F.resolve))(f(x))
-    }(a))
+    (function recur(a: A): F.FutureInstance<E, B> {
+      return future.chain(f(a), fold(recur, F.resolve))
+    })(a)
 }
