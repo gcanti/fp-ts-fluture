@@ -1,9 +1,9 @@
 import * as F from 'fluture'
 import { Alt2 } from 'fp-ts/lib/Alt'
 import { Bifunctor2 } from 'fp-ts/lib/Bifunctor'
-import { ChainRec2 } from 'fp-ts/lib/ChainRec' 
+import { ChainRec2 } from 'fp-ts/lib/ChainRec'
 import { Monad2 } from 'fp-ts/lib/Monad'
-import { Either, fold } from 'fp-ts/lib/Either' 
+import { Either, fold } from 'fp-ts/lib/Either'
 
 declare module 'fp-ts/lib/HKT' {
   interface URItoKind2<E, A> {
