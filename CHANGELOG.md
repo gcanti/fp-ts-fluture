@@ -16,7 +16,7 @@ high state of flux, you're at risk of it changing without notice.
 # 0.6.0
 
 - **Breaking Change**
-  - upgrade to `fluture@12.0.1` (@gcanti)
+  - upgrade to `fluture@12.0.2` (@gcanti)
 
 # 0.5.0
 
