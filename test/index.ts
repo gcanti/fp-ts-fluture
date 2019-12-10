@@ -3,6 +3,7 @@ import { ConcurrentFutureInstance, promise, reject, resolve, FutureInstance } fr
 import { array } from 'fp-ts/lib/Array'
 import { concurrentFuture } from '../src/ConcurrentFuture'
 import { future } from '../src/Future'
+import { left, right } from 'fp-ts/lib/Either'
 
 describe('Future', () => {
   it('should work with sequence (failure case)', done => {
@@ -30,6 +31,11 @@ describe('Future', () => {
     const n2 = await promise(f2)
     const n3 = await promise(f3).catch(() => 3)
     assert.deepEqual([n1, n2, n3], [1, 2, 3])
+  })
+
+  it('should export a ChainRec instance', async () => {
+    const ma = future.chainRec(0, n => resolve(n < 20_000 ? left(n + 1) : right(n)))
+    assert.strictEqual(await promise(ma), 20000)
   })
 })
 
