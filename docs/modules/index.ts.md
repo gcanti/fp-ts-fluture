@@ -4,6 +4,10 @@ nav_order: 3
 parent: Modules
 ---
 
+# index overview
+
+Added in v0.5.0
+
 ---
 
 <h2 class="text-delta">Table of contents</h2>
@@ -20,7 +24,7 @@ Exports the whole `ConcurrentFuture.ts` module
 **Signature**
 
 ```ts
-export { concurrentFuture }
+typeof concurrentFuture
 ```
 
 Added in v0.5.0
@@ -32,7 +36,7 @@ Exports the whole `Future.ts` module
 **Signature**
 
 ```ts
-export { future }
+typeof future
 ```
 
 Added in v0.5.0

@@ -4,6 +4,10 @@ nav_order: 1
 parent: Modules
 ---
 
+# ConcurrentFuture overview
+
+Added in v0.5.0
+
 ---
 
 <h2 class="text-delta">Table of contents</h2>
@@ -29,7 +33,7 @@ Added in v0.5.0
 **Signature**
 
 ```ts
-export const URI = ...
+export const URI: "Fluture/ConcurrentFuture" = ...
 ```
 
 Added in v0.5.0
