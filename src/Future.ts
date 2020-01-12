@@ -1,3 +1,6 @@
+/**
+ * @since 0.5.0
+ */
 import * as F from 'fluture'
 import { Alt2 } from 'fp-ts/lib/Alt'
 import { Bifunctor2 } from 'fp-ts/lib/Bifunctor'

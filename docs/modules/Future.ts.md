@@ -4,6 +4,10 @@ nav_order: 2
 parent: Modules
 ---
 
+# Future overview
+
+Added in v0.5.0
+
 ---
 
 <h2 class="text-delta">Table of contents</h2>
@@ -29,7 +33,7 @@ Added in v0.5.0
 **Signature**
 
 ```ts
-export const URI = ...
+export const URI: "Fluture/Future" = ...
 ```
 
 Added in v0.5.0
