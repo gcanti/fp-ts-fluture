@@ -13,10 +13,14 @@
 **Note**: Gaps between patch versions are faulty/broken releases. **Note**: A feature tagged as Experimental is in a
 high state of flux, you're at risk of it changing without notice.
 
-# 0.6.2
+# 0.6.3
 
 - **Bug Fix**
   - don't set `target: es6` in `tsconfig.build-es6.json` (@gcanti)
+
+# 0.6.2
+
+- **Bug Fix**
   - add `es6` folder to `files` (@gcanti)
 
 # 0.6.1

@@ -1,6 +1,6 @@
 {
   "name": "fp-ts-fluture",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "fp-ts bindings for Fluture",
   "files": [
     "lib",
