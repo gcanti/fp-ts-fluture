@@ -12,12 +12,12 @@ Added in v0.5.0
 
 <h2 class="text-delta">Table of contents</h2>
 
-- [concurrentFuture (export)](#concurrentfuture-export)
-- [future (export)](#future-export)
+- [concurrentFuture](#concurrentfuture)
+- [future](#future)
 
 ---
 
-# concurrentFuture (export)
+# concurrentFuture
 
 Exports the whole `ConcurrentFuture.ts` module
 
@@ -29,7 +29,7 @@ typeof concurrentFuture
 
 Added in v0.5.0
 
-# future (export)
+# future
 
 Exports the whole `Future.ts` module
 
