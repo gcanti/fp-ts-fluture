@@ -13,8 +13,8 @@ Added in v0.5.0
 <h2 class="text-delta">Table of contents</h2>
 
 - [URI (type alias)](#uri-type-alias)
-- [URI](#uri)
-- [concurrentFuture](#concurrentfuture)
+- [URI (constant)](#uri-constant)
+- [concurrentFuture (constant)](#concurrentfuture-constant)
 
 ---
 
@@ -28,7 +28,7 @@ export type URI = typeof URI
 
 Added in v0.5.0
 
-# URI
+# URI (constant)
 
 **Signature**
 
@@ -38,7 +38,7 @@ export const URI: "Fluture/ConcurrentFuture" = ...
 
 Added in v0.5.0
 
-# concurrentFuture
+# concurrentFuture (constant)
 
 **Signature**
 
