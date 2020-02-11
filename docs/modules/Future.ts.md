@@ -14,32 +14,32 @@ Added in v0.5.0
 
 - [Future (interface)](#future-interface)
 - [URI (type alias)](#uri-type-alias)
-- [URI (constant)](#uri-constant)
-- [future (constant)](#future-constant)
-- [left (constant)](#left-constant)
-- [right (constant)](#right-constant)
-- [rightIO (constant)](#rightio-constant)
-- [rightTask (constant)](#righttask-constant)
-- [swap (constant)](#swap-constant)
-- [delay (function)](#delay-function)
-- [fold (function)](#fold-function)
-- [futurify (function)](#futurify-function)
-- [leftIO (function)](#leftio-function)
-- [leftTask (function)](#lefttask-function)
-- [orElse (function)](#orelse-function)
-- [alt (export)](#alt-export)
-- [ap (export)](#ap-export)
-- [apFirst (export)](#apfirst-export)
-- [apSecond (export)](#apsecond-export)
-- [bimap (export)](#bimap-export)
-- [chain (export)](#chain-export)
-- [chainFirst (export)](#chainfirst-export)
-- [flatten (export)](#flatten-export)
-- [fromEither (export)](#fromeither-export)
-- [fromOption (export)](#fromoption-export)
-- [fromPredicate (export)](#frompredicate-export)
-- [map (export)](#map-export)
-- [mapLeft (export)](#mapleft-export)
+- [URI](#uri)
+- [alt](#alt)
+- [ap](#ap)
+- [apFirst](#apfirst)
+- [apSecond](#apsecond)
+- [bimap](#bimap)
+- [chain](#chain)
+- [chainFirst](#chainfirst)
+- [delay](#delay)
+- [flatten](#flatten)
+- [fold](#fold)
+- [fromEither](#fromeither)
+- [fromOption](#fromoption)
+- [fromPredicate](#frompredicate)
+- [future](#future)
+- [futurify](#futurify)
+- [left](#left)
+- [leftIO](#leftio)
+- [leftTask](#lefttask)
+- [map](#map)
+- [mapLeft](#mapleft)
+- [orElse](#orelse)
+- [right](#right)
+- [rightIO](#rightio)
+- [rightTask](#righttask)
+- [swap](#swap)
 
 ---
 
@@ -63,7 +63,7 @@ export type URI = typeof URI
 
 Added in v0.5.0
 
-# URI (constant)
+# URI
 
 **Signature**
 
@@ -73,67 +73,77 @@ export const URI: "Fluture/Future" = ...
 
 Added in v0.5.0
 
-# future (constant)
+# alt
 
 **Signature**
 
 ```ts
-export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> & Alt2<URI> & MonadThrow2<URI> & MonadTask2<URI> = ...
-```
-
-Added in v0.5.0
-
-# left (constant)
-
-**Signature**
-
-```ts
-export const left: <E = ...
+<E, A>(that: () => Future<E, A>) => (fa: Future<E, A>) => Future<E, A>
 ```
 
 Added in v0.6.4
 
-# right (constant)
+# ap
 
 **Signature**
 
 ```ts
-export const right: <E = ...
+<E, A>(fa: Future<E, A>) => <B>(fab: Future<E, (a: A) => B>) => Future<E, B>
 ```
 
 Added in v0.6.4
 
-# rightIO (constant)
+# apFirst
 
 **Signature**
 
 ```ts
-export const rightIO: <E = ...
+<E, B>(fb: Future<E, B>) => <A>(fa: Future<E, A>) => Future<E, A>
 ```
 
 Added in v0.6.4
 
-# rightTask (constant)
+# apSecond
 
 **Signature**
 
 ```ts
-export const rightTask: <E = ...
+<e, B>(fb: Future<e, B>) => <A>(fa: Future<e, A>) => Future<e, B>
 ```
 
 Added in v0.6.4
 
-# swap (constant)
+# bimap
 
 **Signature**
 
 ```ts
-export const swap: <E, A>(ma: Future<E, A>) => Future<A, E> = ...
+<E, G, A, B>(f: (e: E) => G, g: (a: A) => B) => (fa: Future<E, A>) => Future<G, B>
 ```
 
 Added in v0.6.4
 
-# delay (function)
+# chain
+
+**Signature**
+
+```ts
+<E, A, B>(f: (a: A) => Future<E, B>) => (ma: Future<E, A>) => Future<E, B>
+```
+
+Added in v0.6.4
+
+# chainFirst
+
+**Signature**
+
+```ts
+<E, A, B>(f: (a: A) => Future<E, B>) => (ma: Future<E, A>) => Future<E, A>
+```
+
+Added in v0.6.4
+
+# delay
 
 **Signature**
 
@@ -143,7 +153,17 @@ export function delay(millis: number): <A>(ma: Future<never, A>) => Future<never
 
 Added in v0.6.4
 
-# fold (function)
+# flatten
+
+**Signature**
+
+```ts
+<E, A>(mma: Future<E, Future<E, A>>) => Future<E, A>
+```
+
+Added in v0.6.4
+
+# fold
 
 **Signature**
 
@@ -156,7 +176,47 @@ export function fold<E, A, B>(
 
 Added in v0.6.4
 
-# futurify (function)
+# fromEither
+
+**Signature**
+
+```ts
+<E, A>(ma: E.Either<E, A>) => Future<E, A>
+```
+
+Added in v0.6.4
+
+# fromOption
+
+**Signature**
+
+```ts
+<E>(onNone: () => E) => <A>(ma: Option<A>) => Future<E, A>
+```
+
+Added in v0.6.4
+
+# fromPredicate
+
+**Signature**
+
+```ts
+{ <E, A, B>(refinement: Refinement<A, B>, onFalse: (a: A) => E): (a: A) => Future<E, B>; <E, A>(predicate: Predicate<A>, onFalse: (a: A) => E): (a: A) => Future<E, A>; }
+```
+
+Added in v0.6.4
+
+# future
+
+**Signature**
+
+```ts
+export const future: Monad2<URI> & Bifunctor2<URI> & ChainRec2<URI> & Alt2<URI> & MonadThrow2<URI> & MonadTask2<URI> = ...
+```
+
+Added in v0.5.0
+
+# futurify
 
 **Signature**
 
@@ -181,7 +241,17 @@ export function futurify<A, B, C, D, E, L, R>(
 
 Added in v0.6.4
 
-# leftIO (function)
+# left
+
+**Signature**
+
+```ts
+export const left: <E = never, A = never>(e: E) => Future<E, A> = ...
+```
+
+Added in v0.6.4
+
+# leftIO
 
 **Signature**
 
@@ -191,7 +261,7 @@ export function leftIO<E = never, A = never>(ma: IO<E>): Future<E, A> { ... }
 
 Added in v0.6.4
 
-# leftTask (function)
+# leftTask
 
 **Signature**
 
@@ -201,127 +271,7 @@ export function leftTask<E = never, A = never>(ma: Task<E>): Future<E, A> { ... 
 
 Added in v0.6.4
 
-# orElse (function)
-
-**Signature**
-
-```ts
-export function orElse<E, A, M>(onLeft: (e: E) => Future<M, A>): (ma: Future<E, A>) => Future<M, A> { ... }
-```
-
-Added in v0.6.4
-
-# alt (export)
-
-**Signature**
-
-```ts
-<E, A>(that: () => Future<E, A>) => (fa: Future<E, A>) => Future<E, A>
-```
-
-Added in v0.6.4
-
-# ap (export)
-
-**Signature**
-
-```ts
-<E, A>(fa: Future<E, A>) => <B>(fab: Future<E, (a: A) => B>) => Future<E, B>
-```
-
-Added in v0.6.4
-
-# apFirst (export)
-
-**Signature**
-
-```ts
-<E, B>(fb: Future<E, B>) => <A>(fa: Future<E, A>) => Future<E, A>
-```
-
-Added in v0.6.4
-
-# apSecond (export)
-
-**Signature**
-
-```ts
-<E, B>(fb: Future<E, B>) => <A>(fa: Future<E, A>) => Future<E, B>
-```
-
-Added in v0.6.4
-
-# bimap (export)
-
-**Signature**
-
-```ts
-<E, G, A, B>(f: (e: E) => G, g: (a: A) => B) => (fa: Future<E, A>) => Future<G, B>
-```
-
-Added in v0.6.4
-
-# chain (export)
-
-**Signature**
-
-```ts
-<E, A, B>(f: (a: A) => Future<E, B>) => (ma: Future<E, A>) => Future<E, B>
-```
-
-Added in v0.6.4
-
-# chainFirst (export)
-
-**Signature**
-
-```ts
-<E, A, B>(f: (a: A) => Future<E, B>) => (ma: Future<E, A>) => Future<E, A>
-```
-
-Added in v0.6.4
-
-# flatten (export)
-
-**Signature**
-
-```ts
-<E, A>(mma: Future<E, Future<E, A>>) => Future<E, A>
-```
-
-Added in v0.6.4
-
-# fromEither (export)
-
-**Signature**
-
-```ts
-<E, A>(ma: E.Either<E, A>) => Future<E, A>
-```
-
-Added in v0.6.4
-
-# fromOption (export)
-
-**Signature**
-
-```ts
-<E>(onNone: () => E) => <A>(ma: Option<A>) => Future<E, A>
-```
-
-Added in v0.6.4
-
-# fromPredicate (export)
-
-**Signature**
-
-```ts
-{ <E, A, B>(refinement: Refinement<A, B>, onFalse: (a: A) => E): (a: A) => Future<E, B>; <E, A>(predicate: Predicate<A>, onFalse: (a: A) => E): (a: A) => Future<E, A>; }
-```
-
-Added in v0.6.4
-
-# map (export)
+# map
 
 **Signature**
 
@@ -331,12 +281,62 @@ Added in v0.6.4
 
 Added in v0.6.4
 
-# mapLeft (export)
+# mapLeft
 
 **Signature**
 
 ```ts
-<E, G>(f: (e: E) => G) => <A>(fa: Future<E, A>) => Future<G, A>
+<E, G, A>(f: (e: E) => G) => (fa: Future<E, A>) => Future<G, A>
+```
+
+Added in v0.6.4
+
+# orElse
+
+**Signature**
+
+```ts
+export function orElse<E, A, M>(onLeft: (e: E) => Future<M, A>): (ma: Future<E, A>) => Future<M, A> { ... }
+```
+
+Added in v0.6.4
+
+# right
+
+**Signature**
+
+```ts
+export const right: <E = never, A = never>(a: A) => Future<E, A> = ...
+```
+
+Added in v0.6.4
+
+# rightIO
+
+**Signature**
+
+```ts
+export const rightIO: <E = never, A = never>(ma: IO<A>) => Future<E, A> = ...
+```
+
+Added in v0.6.4
+
+# rightTask
+
+**Signature**
+
+```ts
+export const rightTask: <E = never, A = never>(ma: Task<A>) => Future<E, A> = ...
+```
+
+Added in v0.6.4
+
+# swap
+
+**Signature**
+
+```ts
+export const swap: <E, A>(ma: Future<E, A>) => Future<A, E> = ...
 ```
 
 Added in v0.6.4
