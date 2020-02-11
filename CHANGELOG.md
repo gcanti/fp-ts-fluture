@@ -13,6 +13,16 @@
 **Note**: Gaps between patch versions are faulty/broken releases. **Note**: A feature tagged as Experimental is in a
 high state of flux, you're at risk of it changing without notice.
 
+# 0.6.4
+
+- **New Feature**
+  - `Future`
+    - add `MonadTask` instance (@tetsuo)
+    - add `MonadThrow` instance (@tetsuo)
+    - add `fold` function (@tetsuo)
+    - add `pipeable` functions (@tetsuo)
+    - add `futurify` function (@tetsuo)
+
 # 0.6.3
 
 - **Bug Fix**
