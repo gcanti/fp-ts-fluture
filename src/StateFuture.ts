@@ -103,7 +103,7 @@ export const rightState: <S, E = never, A = never>(ma: State<S, A>) => StateFutu
 /**
  * @since 0.6.5
  */
-export function leftState<S, E>(me: State<S, E>): StateFuture<S, E, never> {
+export function leftState<S, E, A = never>(me: State<S, E>): StateFuture<S, E, A> {
   return s => F.left(me(s)[0])
 }
 
