@@ -1,7 +1,6 @@
 /**
  * @since 0.6.5
  */
-import { Either } from 'fp-ts/lib/Either'
 import { IO } from 'fp-ts/lib/IO'
 import { Monad3 } from 'fp-ts/lib/Monad'
 import { MonadThrow3 } from 'fp-ts/lib/MonadThrow'
@@ -9,7 +8,6 @@ import { State } from 'fp-ts/lib/State'
 import { getStateM } from 'fp-ts/lib/StateT'
 import { Task } from 'fp-ts/lib/Task'
 import * as E from 'fp-ts/lib/Either'
-import Future = F.Future
 import { pipeable, pipe } from 'fp-ts/lib/pipeable'
 import { Bifunctor3 } from 'fp-ts/lib/Bifunctor'
 import { Alt3 } from 'fp-ts/lib/Alt'
@@ -39,25 +37,25 @@ export type URI = typeof URI
  * @since 0.6.5
  */
 export interface StateFuture<S, E, A> {
-  (s: S): Future<E, [A, S]>
+  (s: S): F.Future<E, [A, S]>
 }
 
 /**
  * @since 0.6.5
  */
-export function run<S, E, A>(ma: StateFuture<S, E, A>, s: S): Future<E, [A, S]> {
+export function run<S, E, A>(ma: StateFuture<S, E, A>, s: S): F.Future<E, [A, S]> {
   return ma(s)
 }
 
 /**
  * @since 0.6.5
  */
-export const evalState: <S, E, A>(ma: StateFuture<S, E, A>, s: S) => Future<E, A> = T.evalState
+export const evalState: <S, E, A>(ma: StateFuture<S, E, A>, s: S) => F.Future<E, A> = T.evalState
 
 /**
  * @since 0.6.5
  */
-export const execState: <S, E, A>(ma: StateFuture<S, E, A>, s: S) => Future<E, S> = T.execState
+export const execState: <S, E, A>(ma: StateFuture<S, E, A>, s: S) => F.Future<E, S> = T.execState
 
 /**
  * @since 0.6.5
@@ -88,7 +86,7 @@ export function leftTask<S, E>(me: Task<E>): StateFuture<S, E, never> {
 /**
  * @since 0.6.5
  */
-export const fromFuture: <S, E, A>(ma: Future<E, A>) => StateFuture<S, E, A> = T.fromM
+export const fromFuture: <S, E, A>(ma: F.Future<E, A>) => StateFuture<S, E, A> = T.fromM
 
 /**
  * @since 0.6.5
@@ -116,6 +114,9 @@ export function leftState<S, E>(me: State<S, E>): StateFuture<S, E, never> {
   return s => F.left(me(s)[0])
 }
 
+/**
+ * @since 0.6.5
+ */
 export function orElse<S, E, M, A>(
   f: (e: E) => StateFuture<S, M, A>
 ): (ma: StateFuture<S, E, A>) => StateFuture<S, M, A> {
@@ -150,7 +151,7 @@ export const gets: <S, A>(f: (s: S) => A) => StateFuture<S, never, A> = T.gets
  * @since 0.6.5
  */
 export function fromEitherK<E, A extends Array<unknown>, B>(
-  f: (...a: A) => Either<E, B>
+  f: (...a: A) => E.Either<E, B>
 ): <S>(...a: A) => StateFuture<S, E, B> {
   return (...a) => fromEither(f(...a))
 }
@@ -159,7 +160,7 @@ export function fromEitherK<E, A extends Array<unknown>, B>(
  * @since 0.6.5
  */
 export function chainEitherK<E, A, B>(
-  f: (a: A) => Either<E, B>
+  f: (a: A) => E.Either<E, B>
 ): <S>(ma: StateFuture<S, E, A>) => StateFuture<S, E, B> {
   return chain<any, E, A, B>(fromEitherK(f))
 }
@@ -168,7 +169,7 @@ export function chainEitherK<E, A, B>(
  * @since 0.6.5
  */
 export function fromFutureK<E, A extends Array<unknown>, B>(
-  f: (...a: A) => Future<E, B>
+  f: (...a: A) => F.Future<E, B>
 ): <S>(...a: A) => StateFuture<S, E, B> {
   return (...a) => fromFuture(f(...a))
 }
@@ -177,21 +178,23 @@ export function fromFutureK<E, A extends Array<unknown>, B>(
  * @since 0.6.5
  */
 export function chainFutureK<E, A, B>(
-  f: (a: A) => Future<E, B>
+  f: (a: A) => F.Future<E, B>
 ): <S>(ma: StateFuture<S, E, A>) => StateFuture<S, E, B> {
   return chain<any, E, A, B>(fromFutureK(f))
 }
 
-/**
- * @since 0.6.5
- */
-export const stateFuture: Monad3<URI> &
+type MonadStateFuture = Monad3<URI> &
   MonadThrow3<URI> &
   Bifunctor3<URI> &
   Alt3<URI> &
   ChainRec3<URI> &
   MonadThrow3<URI> &
-  MonadTask3<URI> = {
+  MonadTask3<URI>
+
+/**
+ * @since 0.6.5
+ */
+export const stateFuture: MonadStateFuture = {
   URI,
   map: T.map,
   of: right,
@@ -208,7 +211,7 @@ export const stateFuture: Monad3<URI> &
       fea(c),
       F.bimap(f, ([a, c]) => [g(a), c])
     ),
-  chainRec: <S, E, A, B>(a: A, f: (a: A) => StateFuture<S, E, Either<A, B>>): StateFuture<S, E, B> =>
+  chainRec: <S, E, A, B>(a: A, f: (a: A) => StateFuture<S, E, E.Either<A, B>>): StateFuture<S, E, B> =>
     (function recur(a: A): StateFuture<S, E, B> {
       return stateFuture.chain(f(a), E.fold(recur, right))
     })(a),
