@@ -60,7 +60,7 @@ export function left<S, E, A = never>(e: E): StateFuture<S, E, A> {
 /**
  * @since 0.6.5
  */
-export const right: <S, A>(a: A) => StateFuture<S, never, A> = T.of
+export const right: <S, E = never, A = never>(a: A) => StateFuture<S, E, A> = T.of
 
 /**
  * @since 0.6.5
