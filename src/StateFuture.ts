@@ -98,7 +98,7 @@ export function leftIO<S, E, A = never>(me: IO<E>): StateFuture<S, E, A> {
 /**
  * @since 0.6.5
  */
-export const rightState: <S, A>(ma: State<S, A>) => StateFuture<S, never, A> = T.fromState
+export const rightState: <S, E = never, A = never>(ma: State<S, A>) => StateFuture<S, E, A> = T.fromState
 
 /**
  * @since 0.6.5
