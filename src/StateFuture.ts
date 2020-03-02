@@ -43,13 +43,6 @@ export interface StateFuture<S, E, A> {
 /**
  * @since 0.6.5
  */
-export function run<S, E, A>(ma: StateFuture<S, E, A>, s: S): F.Future<E, [A, S]> {
-  return ma(s)
-}
-
-/**
- * @since 0.6.5
- */
 export const evalState: <S, E, A>(ma: StateFuture<S, E, A>, s: S) => F.Future<E, A> = T.evalState
 
 /**
