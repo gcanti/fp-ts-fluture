@@ -133,7 +133,7 @@ export const put: <S, E = never>(s: S) => StateFuture<S, E, void> = T.put
 /**
  * @since 0.6.5
  */
-export const modify: <S>(f: (s: S) => S) => StateFuture<S, never, void> = T.modify
+export const modify: <S, E = never>(f: (s: S) => S) => StateFuture<S, E, void> = T.modify
 
 /**
  * @since 0.6.5
