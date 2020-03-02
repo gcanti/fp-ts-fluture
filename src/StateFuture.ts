@@ -176,18 +176,16 @@ export function chainFutureK<E, A, B>(
   return chain<any, E, A, B>(fromFutureK(f))
 }
 
-type MonadStateFuture = Monad3<URI> &
+/**
+ * @since 0.6.5
+ */
+export const stateFuture: Monad3<URI> &
   MonadThrow3<URI> &
   Bifunctor3<URI> &
   Alt3<URI> &
   ChainRec3<URI> &
   MonadThrow3<URI> &
-  MonadTask3<URI>
-
-/**
- * @since 0.6.5
- */
-export const stateFuture: MonadStateFuture = {
+  MonadTask3<URI> = {
   URI,
   map: T.map,
   of: right,
