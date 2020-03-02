@@ -128,7 +128,7 @@ export const get: <S, E = never>() => StateFuture<S, E, S> = T.get
 /**
  * @since 0.6.5
  */
-export const put: <S>(s: S) => StateFuture<S, never, void> = T.put
+export const put: <S, E = never>(s: S) => StateFuture<S, E, void> = T.put
 
 /**
  * @since 0.6.5
