@@ -123,7 +123,7 @@ export function orElse<S, E, M, A>(
 /**
  * @since 0.6.5
  */
-export const get: <S>() => StateFuture<S, never, S> = T.get
+export const get: <S, E = never>() => StateFuture<S, E, S> = T.get
 
 /**
  * @since 0.6.5
