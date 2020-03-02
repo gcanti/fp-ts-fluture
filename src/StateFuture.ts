@@ -138,7 +138,7 @@ export const modify: <S, E = never>(f: (s: S) => S) => StateFuture<S, E, void> =
 /**
  * @since 0.6.5
  */
-export const gets: <S, A>(f: (s: S) => A) => StateFuture<S, never, A> = T.gets
+export const gets: <S, E = never, A = never>(f: (s: S) => A) => StateFuture<S, E, A> = T.gets
 
 /**
  * @since 0.6.5
