@@ -72,7 +72,7 @@ export function rightTask<S, E = never, A = never>(ma: Task<A>): StateFuture<S, 
 /**
  * @since 0.6.5
  */
-export function leftTask<S, E>(me: Task<E>): StateFuture<S, E, never> {
+export function leftTask<S, E, A = never>(me: Task<E>): StateFuture<S, E, A> {
   return fromFuture(F.leftTask(me))
 }
 
