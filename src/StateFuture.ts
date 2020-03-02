@@ -65,7 +65,7 @@ export const right: <S, E = never, A = never>(a: A) => StateFuture<S, E, A> = T.
 /**
  * @since 0.6.5
  */
-export function rightTask<S, A>(ma: Task<A>): StateFuture<S, never, A> {
+export function rightTask<S, E = never, A = never>(ma: Task<A>): StateFuture<S, E, A> {
   return fromFuture(F.rightTask(ma))
 }
 
