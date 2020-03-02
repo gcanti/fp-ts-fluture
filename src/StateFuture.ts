@@ -53,7 +53,7 @@ export const execState: <S, E, A>(ma: StateFuture<S, E, A>, s: S) => F.Future<E,
 /**
  * @since 0.6.5
  */
-export function left<S, E>(e: E): StateFuture<S, E, never> {
+export function left<S, E, A = never>(e: E): StateFuture<S, E, A> {
   return fromFuture(F.left(e))
 }
 
