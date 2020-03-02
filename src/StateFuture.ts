@@ -84,7 +84,7 @@ export const fromFuture: <S, E, A>(ma: F.Future<E, A>) => StateFuture<S, E, A> =
 /**
  * @since 0.6.5
  */
-export function rightIO<S, A>(ma: IO<A>): StateFuture<S, never, A> {
+export function rightIO<S, E = never, A = never>(ma: IO<A>): StateFuture<S, E, A> {
   return fromFuture(F.rightIO(ma))
 }
 
