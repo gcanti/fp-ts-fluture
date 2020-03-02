@@ -50,7 +50,6 @@ Added in v0.6.5
 - [rightIO](#rightio)
 - [rightState](#rightstate)
 - [rightTask](#righttask)
-- [run](#run)
 - [stateFuture](#statefuture)
 - [stateFutureSeq](#statefutureseq)
 
@@ -301,7 +300,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const get: <S>() => StateFuture<S, never, S> = ...
+export const get: <S, E = never>() => StateFuture<S, E, S> = ...
 ```
 
 Added in v0.6.5
@@ -311,7 +310,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const gets: <S, A>(f: (s: S) => A) => StateFuture<S, never, A> = ...
+export const gets: <S, E = never, A = never>(f: (s: S) => A) => StateFuture<S, E, A> = ...
 ```
 
 Added in v0.6.5
@@ -321,7 +320,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export function left<S, E>(e: E): StateFuture<S, E, never> { ... }
+export function left<S, E, A = never>(e: E): StateFuture<S, E, A> { ... }
 ```
 
 Added in v0.6.5
@@ -331,7 +330,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export function leftIO<S, E>(me: IO<E>): StateFuture<S, E, never> { ... }
+export function leftIO<S, E, A = never>(me: IO<E>): StateFuture<S, E, A> { ... }
 ```
 
 Added in v0.6.5
@@ -341,7 +340,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export function leftState<S, E>(me: State<S, E>): StateFuture<S, E, never> { ... }
+export function leftState<S, E, A = never>(me: State<S, E>): StateFuture<S, E, A> { ... }
 ```
 
 Added in v0.6.5
@@ -351,7 +350,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export function leftTask<S, E>(me: Task<E>): StateFuture<S, E, never> { ... }
+export function leftTask<S, E, A = never>(me: Task<E>): StateFuture<S, E, A> { ... }
 ```
 
 Added in v0.6.5
@@ -381,7 +380,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const modify: <S>(f: (s: S) => S) => StateFuture<S, never, void> = ...
+export const modify: <S, E = never>(f: (s: S) => S) => StateFuture<S, E, void> = ...
 ```
 
 Added in v0.6.5
@@ -403,7 +402,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const put: <S>(s: S) => StateFuture<S, never, void> = ...
+export const put: <S, E = never>(s: S) => StateFuture<S, E, void> = ...
 ```
 
 Added in v0.6.5
@@ -413,7 +412,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const right: <S, A>(a: A) => StateFuture<S, never, A> = ...
+export const right: <S, E = never, A = never>(a: A) => StateFuture<S, E, A> = ...
 ```
 
 Added in v0.6.5
@@ -423,7 +422,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export function rightIO<S, A>(ma: IO<A>): StateFuture<S, never, A> { ... }
+export function rightIO<S, E = never, A = never>(ma: IO<A>): StateFuture<S, E, A> { ... }
 ```
 
 Added in v0.6.5
@@ -433,7 +432,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const rightState: <S, A>(ma: State<S, A>) => StateFuture<S, never, A> = ...
+export const rightState: <S, E = never, A = never>(ma: State<S, A>) => StateFuture<S, E, A> = ...
 ```
 
 Added in v0.6.5
@@ -443,17 +442,7 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export function rightTask<S, A>(ma: Task<A>): StateFuture<S, never, A> { ... }
-```
-
-Added in v0.6.5
-
-# run
-
-**Signature**
-
-```ts
-export function run<S, E, A>(ma: StateFuture<S, E, A>, s: S): F.Future<E, [A, S]> { ... }
+export function rightTask<S, E = never, A = never>(ma: Task<A>): StateFuture<S, E, A> { ... }
 ```
 
 Added in v0.6.5
@@ -463,7 +452,13 @@ Added in v0.6.5
 **Signature**
 
 ```ts
-export const stateFuture: MonadStateFuture = ...
+export const stateFuture: Monad3<URI> &
+  MonadThrow3<URI> &
+  Bifunctor3<URI> &
+  Alt3<URI> &
+  ChainRec3<URI> &
+  MonadThrow3<URI> &
+  MonadTask3<URI> = ...
 ```
 
 Added in v0.6.5
