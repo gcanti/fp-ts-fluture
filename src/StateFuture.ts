@@ -91,7 +91,7 @@ export function rightIO<S, E = never, A = never>(ma: IO<A>): StateFuture<S, E, A
 /**
  * @since 0.6.5
  */
-export function leftIO<S, E>(me: IO<E>): StateFuture<S, E, never> {
+export function leftIO<S, E, A = never>(me: IO<E>): StateFuture<S, E, A> {
   return fromFuture(F.leftIO(me))
 }
 
