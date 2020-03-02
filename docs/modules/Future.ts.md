@@ -108,7 +108,7 @@ Added in v0.6.4
 **Signature**
 
 ```ts
-<e, B>(fb: Future<e, B>) => <A>(fa: Future<e, A>) => Future<e, B>
+<E, B>(fb: Future<E, B>) => <A>(fa: Future<E, A>) => Future<E, B>
 ```
 
 Added in v0.6.4
@@ -286,7 +286,7 @@ Added in v0.6.4
 **Signature**
 
 ```ts
-<E, G, A>(f: (e: E) => G) => (fa: Future<E, A>) => Future<G, A>
+<E, G>(f: (e: E) => G) => <A>(fa: Future<E, A>) => Future<G, A>
 ```
 
 Added in v0.6.4
