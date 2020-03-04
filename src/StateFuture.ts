@@ -211,15 +211,6 @@ export const stateFuture: Monad3<URI> &
   fromTask: rightTask
 }
 
-/**
- * Like `stateFuture` but `ap` is sequential
- * @since 0.6.5
- */
-export const stateFutureSeq: typeof stateFuture = {
-  ...stateFuture,
-  ap: (mab, ma) => T.chain(mab, f => T.map(ma, f))
-}
-
 const {
   alt,
   ap,
