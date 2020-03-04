@@ -12,7 +12,6 @@ import { pipeable, pipe } from 'fp-ts/lib/pipeable'
 import { Bifunctor3 } from 'fp-ts/lib/Bifunctor'
 import { Alt3 } from 'fp-ts/lib/Alt'
 import { MonadTask3 } from 'fp-ts/lib/MonadTask'
-import { ChainRec3 } from 'fp-ts/lib/ChainRec'
 import * as F from './Future'
 
 const T = getStateM(F.future)
@@ -183,7 +182,6 @@ export const stateFuture: Monad3<URI> &
   MonadThrow3<URI> &
   Bifunctor3<URI> &
   Alt3<URI> &
-  ChainRec3<URI> &
   MonadThrow3<URI> &
   MonadTask3<URI> = {
   URI,
@@ -202,10 +200,6 @@ export const stateFuture: Monad3<URI> &
       fea(c),
       F.bimap(f, ([a, c]) => [g(a), c])
     ),
-  chainRec: <S, E, A, B>(a: A, f: (a: A) => StateFuture<S, E, E.Either<A, B>>): StateFuture<S, E, B> =>
-    (function recur(a: A): StateFuture<S, E, B> {
-      return stateFuture.chain(f(a), E.fold(recur, right))
-    })(a),
   mapLeft: (fea, f) => c => pipe(fea(c), F.mapLeft(f)),
   fromIO: rightIO,
   fromTask: rightTask
@@ -227,8 +221,6 @@ const {
   fromOption,
   fromPredicate
 } = pipeable(stateFuture)
-
-const chainRec = stateFuture.chainRec
 
 export {
   /**
@@ -286,9 +278,5 @@ export {
   /**
    * @since 0.6.5
    */
-  fromPredicate,
-  /**
-   * @since 0.6.5
-   */
-  chainRec
+  fromPredicate
 }

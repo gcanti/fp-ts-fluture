@@ -24,7 +24,6 @@ Added in v0.6.5
 - [chainEitherK](#chaineitherk)
 - [chainFirst](#chainfirst)
 - [chainFutureK](#chainfuturek)
-- [chainRec](#chainrec)
 - [evalState](#evalstate)
 - [execState](#execstate)
 - [filterOrElse](#filterorelse)
@@ -51,7 +50,6 @@ Added in v0.6.5
 - [rightState](#rightstate)
 - [rightTask](#righttask)
 - [stateFuture](#statefuture)
-- [stateFutureSeq](#statefutureseq)
 
 ---
 
@@ -177,16 +175,6 @@ Added in v0.6.5
 export function chainFutureK<E, A, B>(
   f: (a: A) => F.Future<E, B>
 ): <S>(ma: StateFuture<S, E, A>) => StateFuture<S, E, B> { ... }
-```
-
-Added in v0.6.5
-
-# chainRec
-
-**Signature**
-
-```ts
-<R, E, A, B>(a: A, f: (a: A) => StateFuture<R, E, E.Either<A, B>>) => StateFuture<R, E, B>
 ```
 
 Added in v0.6.5
@@ -456,21 +444,8 @@ export const stateFuture: Monad3<URI> &
   MonadThrow3<URI> &
   Bifunctor3<URI> &
   Alt3<URI> &
-  ChainRec3<URI> &
   MonadThrow3<URI> &
   MonadTask3<URI> = ...
-```
-
-Added in v0.6.5
-
-# stateFutureSeq
-
-Like `stateFuture` but `ap` is sequential
-
-**Signature**
-
-```ts
-export const stateFutureSeq: typeof stateFuture = ...
 ```
 
 Added in v0.6.5
