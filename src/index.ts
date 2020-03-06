@@ -3,15 +3,18 @@
  */
 import * as future from './Future'
 import * as concurrentFuture from './ConcurrentFuture'
+import * as stateFuture from './StateFuture'
 export {
   /**
-   * Exports the whole `Future.ts` module
    * @since 0.5.0
    */
   future,
   /**
-   * Exports the whole `ConcurrentFuture.ts` module
    * @since 0.5.0
    */
-  concurrentFuture
+  concurrentFuture,
+  /**
+   * @since 0.6.5
+   */
+  stateFuture
 }

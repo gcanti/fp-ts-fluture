@@ -14,12 +14,11 @@ Added in v0.5.0
 
 - [concurrentFuture](#concurrentfuture)
 - [future](#future)
+- [stateFuture](#statefuture)
 
 ---
 
 # concurrentFuture
-
-Exports the whole `ConcurrentFuture.ts` module
 
 **Signature**
 
@@ -31,8 +30,6 @@ Added in v0.5.0
 
 # future
 
-Exports the whole `Future.ts` module
-
 **Signature**
 
 ```ts
@@ -40,3 +37,13 @@ typeof future
 ```
 
 Added in v0.5.0
+
+# stateFuture
+
+**Signature**
+
+```ts
+typeof stateFuture
+```
+
+Added in v0.6.5

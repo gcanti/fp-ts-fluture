@@ -1,6 +1,6 @@
 {
   "name": "fp-ts-fluture",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "fp-ts bindings for Fluture",
   "files": [
     "lib",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@types/mocha": "2.2.38",
     "@types/node": "^12.12.11",
-    "docs-ts": "^0.3.4",
+    "docs-ts": "^0.3.5",
     "fluture": "^12.0.2",
     "fp-ts": "^2.4.4",
     "import-path-rewrite": "github:gcanti/import-path-rewrite",
