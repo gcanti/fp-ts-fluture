@@ -7,14 +7,18 @@
 # Example
 
 ```ts
-import { reject, of } from 'fluture'
+import { reject, resolve, fork } from 'fluture'
 import { future } from 'fp-ts-fluture/lib/Future'
 import { array } from 'fp-ts/lib/Array'
 
 array
-  .sequence(future)([of(1), reject('ops')])
-  .fork(() => console.error('error'), xs => console.log(xs)) // => "error"
+  .sequence(future)([resolve(1), reject('oops')])
+  .pipe(fork(e => console.error('Error:', e))
+    (console.log), // => "Error: oops"
+  )
 array
-  .sequence(future)([of(1), of(2)])
-  .fork(() => console.error('error'), xs => console.log(xs)) // => [1, 2]
+  .sequence(future)([resolve(1), resolve(2)])
+  .pipe(fork(console.error)
+    (console.log), // => [1, 2]
+  )
 ```
